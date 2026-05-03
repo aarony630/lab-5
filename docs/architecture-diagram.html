@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Component C: 3-Tier Architecture</title>
+<style>
+  body { font-family: Arial, sans-serif; background: #f8fafc; padding: 40px; }
+  h2 { text-align: center; color: #1e293b; margin-bottom: 4px; }
+  .subtitle { text-align: center; color: #64748b; font-size: 13px; margin-bottom: 36px; }
+  .diagram { display: flex; align-items: flex-start; justify-content: center; gap: 0; }
+  .tier { background: #1e3a5f; color: #e2e8f0; border-radius: 10px; padding: 20px; width: 200px; min-height: 160px; }
+  .tier-label { font-size: 10px; text-transform: uppercase; color: #94a3b8; letter-spacing: 1px; margin-bottom: 6px; }
+  .tier-title { font-weight: bold; color: #7dd3fc; font-size: 15px; margin-bottom: 10px; }
+  .tier-item { font-size: 12px; color: #cbd5e1; margin-bottom: 4px; }
+  .arrow-col { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 8px; gap: 4px; min-height: 160px; }
+  .arrow-line { color: #475569; font-size: 20px; }
+  .arrow-text { font-size: 10px; color: #64748b; text-align: center; max-width: 80px; }
+  .ext { background: #0f2942; border: 1px dashed #334155; border-radius: 10px; padding: 16px; width: 160px; margin-left: 24px; }
+  .ext-label { font-size: 10px; text-transform: uppercase; color: #94a3b8; letter-spacing: 1px; margin-bottom: 6px; }
+  .ext-title { font-weight: bold; color: #fbbf24; font-size: 14px; margin-bottom: 8px; }
+  .ext-item { font-size: 12px; color: #cbd5e1; }
+  .ext-arrow { font-size: 11px; color: #64748b; text-align: center; margin: 4px 0; }
+</style>
+</head>
+<body>
+<h2>Component C: 3-Tier Architecture — CSV Prep Tool</h2>
+<p class="subtitle">Amazon → BlueTally CSV Cleanup Tool</p>
+
+<div class="diagram">
+  <div class="tier">
+    <div class="tier-label">Tier 1</div>
+    <div class="tier-title">Browser (Client)</div>
+    <div class="tier-item">• Streamlit-rendered UI</div>
+    <div class="tier-item">• File uploader widget</div>
+    <div class="tier-item">• st.data_editor table</div>
+    <div class="tier-item">• Download button</div>
+    <div class="tier-item">• User interactions</div>
+  </div>
+
+  <div class="arrow-col">
+    <div class="arrow-text">HTTP request</div>
+    <div class="arrow-line">→</div>
+    <div class="arrow-line">←</div>
+    <div class="arrow-text">HTML response</div>
+  </div>
+
+  <div class="tier">
+    <div class="tier-label">Tier 2</div>
+    <div class="tier-title">Streamlit Server (Logic)</div>
+    <div class="tier-item">• app.py</div>
+    <div class="tier-item">• cleaner.py pipeline</div>
+    <div class="tier-item">• Name shortening</div>
+    <div class="tier-item">• Categorization</div>
+    <div class="tier-item">• CSV generation</div>
+    <div class="tier-item">• db.py → Supabase</div>
+  </div>
+
+  <div class="arrow-col">
+    <div class="arrow-text">SQL INSERT</div>
+    <div class="arrow-line">→</div>
+    <div class="arrow-line">←</div>
+    <div class="arrow-text">JSON result</div>
+  </div>
+
+  <div class="tier">
+    <div class="tier-label">Tier 3</div>
+    <div class="tier-title">Supabase (Database)</div>
+    <div class="tier-item">• upload_log table</div>
+    <div class="tier-item">• id (uuid)</div>
+    <div class="tier-item">• filename (text)</div>
+    <div class="tier-item">• item_count (int)</div>
+    <div class="tier-item">• it_count (int)</div>
+    <div class="tier-item">• mksp_count (int)</div>
+  </div>
+
+  <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; margin-left:32px;">
+    <div class="ext">
+      <div class="ext-label">External API</div>
+      <div class="ext-title">Open-Meteo</div>
+      <div class="ext-item">• Current weather</div>
+      <div class="ext-item">• Seattle (GIX)</div>
+      <div class="ext-item">• Free, no auth</div>
+    </div>
+    <div class="ext-arrow" style="margin-top:8px;">↑ HTTP GET (Tier 2 fetches)</div>
+  </div>
+</div>
+</body>
+</html>

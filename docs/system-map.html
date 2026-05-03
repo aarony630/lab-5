@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Component A: System Map</title>
+<style>
+  body { font-family: Arial, sans-serif; background: #f8fafc; padding: 40px; }
+  h2 { text-align: center; color: #1e293b; margin-bottom: 4px; }
+  .subtitle { text-align: center; color: #64748b; font-size: 13px; margin-bottom: 32px; }
+  .flow { display: flex; flex-direction: column; align-items: center; gap: 0; max-width: 700px; margin: 0 auto; }
+  .box { background: #1e3a5f; color: #e2e8f0; border-radius: 10px; padding: 14px 24px; width: 100%; box-sizing: border-box; }
+  .box-title { font-weight: bold; color: #7dd3fc; font-size: 15px; margin-bottom: 6px; }
+  .box-detail { font-size: 13px; line-height: 1.6; }
+  .pain { background: #7f1d1d; color: #fca5a5; border-radius: 6px; padding: 6px 10px; margin-top: 8px; font-size: 12px; }
+  .arrow { color: #475569; font-size: 22px; margin: 2px 0; }
+  .arrow-label { color: #64748b; font-size: 11px; margin: 0; }
+  .touchpoint { display: inline-block; background: #fbbf24; color: #1c1917; border-radius: 4px; font-size: 11px; padding: 1px 6px; margin-left: 8px; font-weight: bold; }
+  .actors { display: flex; gap: 16px; margin-top: 32px; max-width: 700px; margin-left: auto; margin-right: auto; }
+  .actor { background: #0f172a; border: 1px solid #334155; border-radius: 8px; padding: 10px 14px; flex: 1; font-size: 12px; color: #e2e8f0; }
+  .actor-name { color: #86efac; font-weight: bold; margin-bottom: 4px; }
+</style>
+</head>
+<body>
+<h2>Component A: System Map — Equipment Checkout Workflow</h2>
+<p class="subtitle">Interviewee: Maason Kao, GIX Operations &nbsp;|&nbsp; ⭐ = System touchpoint &nbsp;|&nbsp; 🔴 = Pain point</p>
+
+<div class="flow">
+  <div class="box">
+    <div class="box-title">Amazon / Purchase Team</div>
+    <div class="box-detail">Items ordered → listing spreadsheet maintained with team purchases</div>
+  </div>
+  <div class="arrow">↓</div>
+  <div class="arrow-label">Items physically arrive at 3rd floor table</div>
+  <div class="arrow">↓</div>
+
+  <div class="box">
+    <div class="box-title">Staff Receiving <span class="touchpoint">⭐ Touchpoint 1</span></div>
+    <div class="box-detail">
+      Kevin + Maason at desktop:<br>
+      • Mark item on spreadsheet<br>
+      • Add barcode to physical item<br>
+      • Manually decide: MKSP or IT?
+    </div>
+    <div class="pain">🔴 Pain: Too many items — manual sorting does not scale</div>
+  </div>
+  <div class="arrow">↓</div>
+  <div class="arrow-label">Export spreadsheet as CSV</div>
+  <div class="arrow">↓</div>
+
+  <div class="box">
+    <div class="box-title">BlueTally Import <span class="touchpoint">⭐ Touchpoint 2</span></div>
+    <div class="box-detail">
+      Maason at desktop:<br>
+      • Manually shorten Amazon product names<br>
+      • Upload CSV to BlueTally (inventory system)<br>
+      • Mandatory fields: Asset ID, Product Number
+    </div>
+    <div class="pain">🔴 Pain: Amazon names too long — must be manually edited before upload</div>
+    <div class="pain">🔴 Pain: Some fields must be added manually after import</div>
+  </div>
+  <div class="arrow">↓</div>
+  <div class="arrow-label">Item now in BlueTally system</div>
+  <div class="arrow">↓</div>
+
+  <div class="box">
+    <div class="box-title">Student Check-In/Out</div>
+    <div class="box-detail">
+      Step 1: Student checks in with <strong>Purchase Team</strong><br>
+      Step 2: Student checks in/out via <strong>BlueTally</strong>
+    </div>
+    <div class="pain" style="background:#78350f; color:#fcd34d;">⚡ Two separate touchpoints required before equipment moves</div>
+  </div>
+</div>
+
+<div class="actors">
+  <div class="actor"><div class="actor-name">Kevin (Staff)</div>Receives items, sorts MKSP/IT</div>
+  <div class="actor"><div class="actor-name">Maason (Staff)</div>Manages BlueTally uploads, checkout returns</div>
+  <div class="actor"><div class="actor-name">Students</div>Return items, check out equipment</div>
+  <div class="actor"><div class="actor-name">Purchase Team</div>First touchpoint for student check-in</div>
+</div>
+</body>
+</html>
