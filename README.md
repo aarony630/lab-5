@@ -26,7 +26,8 @@
 | Download button | Yes | — |
 | Text | Yes | — |
 
-**Deployment URL:** *(add after deploying to Streamlit Cloud)*
+**Deployment URL:** https://koxx62ay2xbhrx89ecsyyp.streamlit.app  
+**Secrets check:** No secrets in source code — Supabase credentials stored in Streamlit Cloud Secrets, `.env` is gitignored locally.
 
 ## Component D: Contract Test Results
 
