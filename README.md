@@ -49,6 +49,25 @@ Run: `pytest tests/test_contract.py tests/test_api_asserts.py -v`
 | 2 | Invalid latitude | lat=999 | 400 | 400 | Pass |
 | 3 | No auth needed | Valid request | Not 401 | 200 | Pass |
 
+## Component E: GIX Events
+
+**App:** `events_app.py` — Streamlit events browser with category filter  
+**Supabase table `events`:** `id`, `title`, `category`, `description`, `event_date`, `location`
+
+**System architecture map:** *(hand-draw or add image: Browser → Streamlit server → Supabase `events` table; label arrows: HTTP, SQL SELECT, JSON)*
+
+**Testing** (`pytest tests/test_events.py`):
+
+| # | Test | What it checks | Pass/Fail |
+|---|------|---------------|-----------|
+| Assert 1 | `test_events_returns_list` | Query returns a list | Pass |
+| Assert 2 | `test_events_have_required_fields` | Every event has title + category | Pass |
+| Error 1 | `test_category_filter_works` | Filter returns only matching rows | Pass |
+| Error 2 | `test_empty_category_returns_empty` | Nonexistent category → empty list, no crash | Pass |
+| Error 3 | `test_missing_credentials_raises` | Bad credentials raise before hitting DB | Pass |
+
+**Security:** No secrets in source. Credentials in `.env` locally, Streamlit Cloud Secrets in deployment.
+
 ## AI Usage Log
 
 *(Document 3 AI interactions per lab format)*
