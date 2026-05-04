@@ -6,8 +6,8 @@
 
 **Build Mandate:** "Based on the interview, I will build a **CSV cleanup and categorization tool** because the interviewee said Amazon product names are too long and items must be manually sorted to MKSP or IT, which means the design must automate name shortening and keyword-based categorization before export to BlueTally."
 
-**System map:** see `docs/system-map.png` (hand-drawn or screenshot from visual companion)
-
+**System map:** 
+![alt text](lab5systemmap.png)
 ## Component B: App
 
 **Stack:** Streamlit + Python + Supabase  
@@ -28,6 +28,20 @@
 
 **Deployment URL:** https://koxx62ay2xbhrx89ecsyyp.streamlit.app  
 **Secrets check:** No secrets in source code — Supabase credentials stored in Streamlit Cloud Secrets, `.env` is gitignored locally.
+
+## Component C: System Architecture & Design
+
+**Architecture diagram:** see `docs/architecture-diagram.html` — 3-tier: Browser → Streamlit server → Supabase, with Open-Meteo as external API connected to Tier 2.
+
+**Design Decision Log:**
+
+| Field | Entry |
+|-------|-------|
+| **Decision** | Use a single `upload_log` table to record every CSV import run |
+| **Alternatives considered** | Store individual item rows per upload; no database logging at all |
+| **Why you chose this** | Logging at the batch level (not row level) keeps the schema simple and satisfies the Supabase requirement without overcomplicating the UI |
+| **Trade-off** | No per-item audit trail — can't see which specific products were in a past upload |
+| **When would you choose differently?** | If Maason needed to look up a specific item's import history, row-level storage would be needed |
 
 ## Component D: Contract Test Results
 
@@ -54,7 +68,7 @@ Run: `pytest tests/test_contract.py tests/test_api_asserts.py -v`
 **App:** `events_app.py` — Streamlit events browser with category filter  
 **Supabase table `events`:** `id`, `title`, `category`, `description`, `event_date`, `location`
 
-**System architecture map:** *(hand-draw or add image: Browser → Streamlit server → Supabase `events` table; label arrows: HTTP, SQL SELECT, JSON)*
+**System architecture map:** See `docs/component-e-architecture.html` — 3-tier: Browser → Streamlit server → Supabase `events` table; arrows labeled HTTP, SQL SELECT + filter, JSON array; boundary errors noted.
 
 **Testing** (`pytest tests/test_events.py`):
 
